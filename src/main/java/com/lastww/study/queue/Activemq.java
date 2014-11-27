@@ -2,7 +2,15 @@ package com.lastww.study.queue;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import javax.jms.*;
+import javax.jms.Connection;
+import javax.jms.DeliveryMode;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
 
 /**
  * Created by liuweiwei on 14-8-2.
@@ -46,8 +54,10 @@ public class Activemq {
             boolean flag = true;
             while (flag) {
                 Message message = messageConsumer.receive(1000);
-                System.out.println(message.toString());
-                System.out.println("received message:" + ((TextMessage) message).getText());
+                if (message != null) {
+                    System.out.println(message.toString());
+                    System.out.println("received message:" + ((TextMessage) message).getText());
+                }
             }
 
             messageConsumer.close();
