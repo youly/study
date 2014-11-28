@@ -100,10 +100,12 @@ public class ZookeeperEventContainer implements Watcher {
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
+                        break;
                     case SyncConnected:
                         countDownLatch.countDown();
                         break;
                 }
+                break;
             case NodeChildrenChanged:
                 //节点删除、创建同时会促发上层节点NodeChildrenChanged事件，因此可忽略
                 //case NodeDeleted:
