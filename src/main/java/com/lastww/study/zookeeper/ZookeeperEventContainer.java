@@ -56,7 +56,7 @@ public class ZookeeperEventContainer implements Watcher {
         try {
             // 监听根节点数据变更、创建、删除
             this.zooKeeper.getData("/root", true, null);
-            // 监听子节点删除、子节点创建、删除
+            // 监听子节点数据更新、创建、删除
             List<String> children = this.zooKeeper.getChildren("/root", true);
             for (String child : children) {
                 this.zooKeeper.getData("/root/" + child, true, null);
@@ -125,9 +125,6 @@ public class ZookeeperEventContainer implements Watcher {
                 this.monitor();
                 break;
         }
-
-
-
     }
 
     public static void main(String[] args) {
@@ -142,7 +139,7 @@ public class ZookeeperEventContainer implements Watcher {
             e.printStackTrace();
         }
 
-        // 关闭连接、测试session expired
+        // 关闭连接、测试session disconnected
         try {
             ZooKeeper oldZooKeeper = new ZooKeeper("127.0.0.1:2181", 10000, null, container.getZooKeeper().getSessionId(), null);
             log.debug("close old zookeeper:" + oldZooKeeper.getSessionId());
