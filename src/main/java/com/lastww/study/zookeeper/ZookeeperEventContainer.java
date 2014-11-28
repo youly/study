@@ -4,6 +4,8 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.concurrent.TimeUnit;
  * Created by liuweiwei on 14-11-27.
  */
 public class ZookeeperEventContainer implements Watcher {
+
+    private static Logger log = LoggerFactory.getLogger(ZookeeperEventContainer.class);
 
     public static final int SESSION_TIMEOUT = 10000;
 
@@ -38,11 +42,11 @@ public class ZookeeperEventContainer implements Watcher {
 
     public ZooKeeper createZooKeeper() throws IOException, InterruptedException {
 
-        System.out.println("about to create zookeeper");
+        log.debug("about to create zookeeper");
         ZooKeeper newZooKeeper = new ZooKeeper("127.0.0.1:2181", SESSION_TIMEOUT, this);
         countDownLatch = new CountDownLatch(1);
         countDownLatch.await(SESSION_TIMEOUT, TimeUnit.MILLISECONDS);
-        System.out.println("connection establed, session id:" + newZooKeeper.getSessionId());
+        log.debug("connection establed, session id:" + newZooKeeper.getSessionId());
         return newZooKeeper;
     }
 
@@ -76,13 +80,13 @@ public class ZookeeperEventContainer implements Watcher {
     @Override
     public void process(WatchedEvent event) {
 
-        System.out.println("received event:" + event.toString());
+        log.debug("received event:" + event.toString());
 
         switch (event.getType()) {
             case None:
                 switch (event.getState()) {
                     case Expired:
-                        System.out.println("expired:" + this.zooKeeper.getSessionId());
+                        log.debug("expired:" + this.zooKeeper.getSessionId());
                         try {
                             this.zooKeeper.close();
                             this.zooKeeper = createZooKeeper();
@@ -92,7 +96,7 @@ public class ZookeeperEventContainer implements Watcher {
                         }
                         break;
                     case Disconnected:
-                        System.out.println("disconnected:" + this.zooKeeper.getSessionId());
+                        log.debug("disconnected:" + this.zooKeeper.getSessionId());
                         try {
                             this.zooKeeper.close();
                             this.zooKeeper = createZooKeeper();
@@ -130,7 +134,7 @@ public class ZookeeperEventContainer implements Watcher {
 
         ZookeeperEventContainer container = ZookeeperEventContainer.getInstance();
 
-        System.out.println("container start");
+        log.debug("container start");
 
         try {
             Thread.sleep(5000L);
@@ -141,7 +145,7 @@ public class ZookeeperEventContainer implements Watcher {
         // 关闭连接、测试session expired
         try {
             ZooKeeper oldZooKeeper = new ZooKeeper("127.0.0.1:2181", 10000, null, container.getZooKeeper().getSessionId(), null);
-            System.out.println("close old zookeeper:" + oldZooKeeper.getSessionId());
+            log.debug("close old zookeeper:" + oldZooKeeper.getSessionId());
             oldZooKeeper.close();
         } catch (InterruptedException e) {
             e.printStackTrace();
