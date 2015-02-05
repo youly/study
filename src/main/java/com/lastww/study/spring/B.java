@@ -6,6 +6,21 @@ package com.lastww.study.spring;
 
 public class B {
 
+    private C c;
+
+
+    public void setC(C c) {
+        System.out.println("B.setC initialed");
+        this.c = c;
+    }
+
+/*
+    public B(C c) {
+        this.c = c;
+        System.out.println("B initialed");
+    }
+*/
+
     public String funb() {
         System.out.println("funb");
         return "B.funb";

@@ -2,8 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
-    <bean id="a" class="com.lastww.study.spring.A" init-method="init"></bean>
-    <bean id="b" class="com.lastww.study.spring.B"></bean>
+    <bean id="a" class="com.lastww.study.spring.A" init-method="init">
+<!--
+        <constructor-arg index="0" ref="b"></constructor-arg>
+-->
+    </bean>
+
+    <bean id="b" class="com.lastww.study.spring.B">
+<!--
+        <constructor-arg index="0" ref="c"></constructor-arg>
+-->
+    </bean>
+
     <bean id="c" class="com.lastww.study.spring.C"></bean>
+
+
 
 </beans>
