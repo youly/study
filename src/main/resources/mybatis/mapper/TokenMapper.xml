@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lastww.study.web.dao.interfaces.TokenDao" >
+  <resultMap id="BaseResultMap" type="com.lastww.study.web.dao.Token" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="editor" property="editor" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="effective_time" property="effectiveTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="db_create_time" property="dbCreateTime" jdbcType="TIMESTAMP" />
+    <result column="db_update_time" property="dbUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, type, content, user_id, state, editor, create_time, effective_time, update_time, 
+    db_create_time, db_update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from community_s_token
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from community_s_token
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.lastww.study.web.dao.Token" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+    insert into community_s_token (type, content,
+      user_id, state, editor, 
+      create_time, effective_time, update_time, 
+      db_create_time, db_update_time)
+    values (#{type,jdbcType=TINYINT}, #{content,jdbcType=VARCHAR},
+      #{userId,jdbcType=BIGINT}, #{state,jdbcType=TINYINT}, #{editor,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=BIGINT}, #{effectiveTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{dbCreateTime,jdbcType=TIMESTAMP}, #{dbUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.lastww.study.web.dao.Token" >
+    update community_s_token
+    set type = #{type,jdbcType=TINYINT},
+      content = #{content,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      state = #{state,jdbcType=TINYINT},
+      editor = #{editor,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      effective_time = #{effectiveTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      db_create_time = #{dbCreateTime,jdbcType=TIMESTAMP},
+      db_update_time = #{dbUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
