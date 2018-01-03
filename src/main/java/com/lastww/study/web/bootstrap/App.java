@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * Created by Youly<hzliuweiwei3@corp.netease.com> on 2017/5/23.
+ * Created by Youly on 2017/5/23.
  */
 @ComponentScan(basePackages = {"com.lastww.study.web"})
 @EnableAutoConfiguration
