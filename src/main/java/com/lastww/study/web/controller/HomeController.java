@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 
 /**
- * Created by Youly<hzliuweiwei3@corp.netease.com> on 2017/5/24.
+ * Created by Youly on 2017/5/24.
  */
 @Controller
 public class HomeController {
