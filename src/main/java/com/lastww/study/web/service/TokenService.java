@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 /**
- * Created by Youly<hzliuweiwei3@corp.netease.com> on 2017/5/24.
+ * Created by Youly on 2017/5/24.
  */
 @Service
 public class TokenService {
