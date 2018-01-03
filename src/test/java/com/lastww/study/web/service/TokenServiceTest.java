@@ -11,7 +11,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.testng.annotations.Test;
 
 /**
- * Created by Youly<hzliuweiwei3@corp.netease.com> on 2017/5/31.
+ * Created by Youly on 2017/5/31.
  */
 public class TokenServiceTest extends AbstractTestCase {
 
